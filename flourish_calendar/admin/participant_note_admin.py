@@ -9,8 +9,7 @@ from ..models import ParticipantNote
 
 
 @admin.register(ParticipantNote, site=flourish_calendar_admin)
-class ParticipantNoteAdmin(ModelAdminBasicMixin,
-                           ModelAdminNextUrlRedirectMixin,
+class ParticipantNoteAdmin(ModelAdminBasicMixin, ModelAdminNextUrlRedirectMixin,
                            admin.ModelAdmin):
 
     form = ParticipantNoteForm
@@ -29,9 +28,3 @@ class ParticipantNoteAdmin(ModelAdminBasicMixin,
     radio_fields = {
         'color': admin.VERTICAL,
     }
-
-    search_fields = ('subject_identifier', 'title', )
-
-    list_display = ('subject_identifier', 'title', 'date', 'color', )
-
-    list_filter = ('title', 'date', 'color', )
