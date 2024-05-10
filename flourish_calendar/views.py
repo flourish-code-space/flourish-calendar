@@ -103,8 +103,7 @@ class CalendarView(NavbarViewMixin, EdcBaseViewMixin, generic.ListView):
 
 def export_events_as_csv(request):
     csv_headers = ['Event Type', 'Event Date', 'Subject Identifier', 'Child Age',
-                   'Current Cohort', 'Enrolment Cohort', 'Exposure Status', 'Title',
-                   'Description']
+                   'Current Cohort', 'Enrolment Cohort', 'Exposure Status', 'Details']
 
     # Generate datetime stamp for file name
     timestamp_str = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
@@ -135,9 +134,8 @@ def export_events_as_csv(request):
                 'event_type': 'Appointment',
                 'date': event.appt_datetime.date(),
                 'subject_identifier': event.subject_identifier,
-                'title': f'Appointment: {event.visit_code}',
+                'description': f'Appointment: {event.visit_code}',
                 'child_age': get_child_age(event.subject_identifier),
-                'description': '',
                 'current_cohort': current_cohort_name,
                 'enrolment_cohort': enrolment_cohort_name,
                 'exposure_status': exposure_status,
@@ -150,7 +148,6 @@ def export_events_as_csv(request):
                 'child_age': get_child_age(event.subject_identifier),
                 'current_cohort': current_cohort_name,
                 'enrolment_cohort': enrolment_cohort_name,
-                'title': f'{event.title}',
                 'description': f'{event.title}',
                 'exposure_status': exposure_status,
             })
@@ -160,6 +157,6 @@ def export_events_as_csv(request):
             [obj.get('event_type'), obj.get('date'), obj.get('subject_identifier'),
              obj.get('child_age'), obj.get('current_cohort'),
              obj.get('enrolment_cohort'), obj.get('exposure_status'),
-             obj.get('title'), obj.get('description')])
+             obj.get('description')])
 
     return response
